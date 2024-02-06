@@ -6,36 +6,15 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:12:08 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/06 14:48:51 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:23:01 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	get_sleep(t_philo *philo);
+static void	get_sleep(t_philo *philo);
 
-void *monitor_philo(void *game_dum)
-{
-	int	i;
-	t_game *game;
-
-	game = (t_game *)game_dum;
-	i = 0;
-	while (1)
-	{
-		if (is_game_clear(game) == true)
-			return (NULL);
-		if (get_time() - game->philos[i].last_eat > game->time_to_die && game->philos[i].last_eat != -1)
-		{
-			print_dead(&game->philos[i]);
-			exit(FAILURE);
-		}
-		i = (i + 1) % game->num_of_philo;
-	}
-	return (NULL);
-}
-
-void	take_forks(t_philo *philo)
+static void	take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
 	print_forks(philo);
@@ -43,14 +22,14 @@ void	take_forks(t_philo *philo)
 	print_forks(philo);
 }
 
-void	put_down_forks(t_philo *philo)
+static void	put_down_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 	get_sleep(philo);
 }
 
-void	get_sleep(t_philo *philo)
+static void	get_sleep(t_philo *philo)
 {
 	print_sleeping(philo);
 	time_sleep(philo->game->time_to_sleep);

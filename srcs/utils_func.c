@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:01:17 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/05 17:53:25 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:25:32 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,15 @@ int	show_usage()
 	[time_to_die]\
 	[time_to_eat]\
 	[time_to_sleep]\
-	[number_of_time_each_philosophers_must_eat]\n");
-	return(0);
+	[number_of_time_each_philosophers_must_eat]\n\
+	every parameter should be a positive integer smaller than INT_MAX\n");
+	return(FAILURE);
+}
+
+int	show_error_message()
+{
+	printf("Error: failed to initialize the game\n");
+	return (FAILURE);
 }
 
 long	get_time(void)

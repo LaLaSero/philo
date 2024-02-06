@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:32:03 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/06 14:50:38 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:54:13 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,30 @@
 
 void print_eating(t_philo *philo)
 {
-	printf("%ld %d is eating\n", get_time() - philo->game->start_time, philo->id);
+	printf("%ld %d is eating\n",
+		get_time() - philo->game->start_time, philo->id);
 }
 
 void print_sleeping(t_philo *philo)
 {
-	printf("%ld %d is sleeping\n", get_time() - philo->game->start_time, philo->id);
+	printf("%ld %d is sleeping\n",
+		get_time() - philo->game->start_time, philo->id);
 }
 
 void print_thinking(t_philo *philo)
 {
-	printf("%ld %d is thinking\n", get_time() - philo->game->start_time, philo->id);
+	printf("%ld %d is thinking\n",
+		get_time() - philo->game->start_time, philo->id);
 }
 
 void print_dead(t_philo *philo)
 {
-	printf("%ld %d died\n", get_time() - philo->game->start_time, philo->id);
+	printf("%ld %d died\n",
+		get_time() - philo->game->start_time, philo->id);
 }
 
 void print_forks(t_philo *philo)
 {
-	printf("%ld %d has taken a fork\n", get_time() - philo->game->start_time, philo->id);
+	printf("%ld %d has taken a fork\n",
+		get_time() - philo->game->start_time, philo->id);
 }

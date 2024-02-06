@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:14:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/05 21:30:34 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:37:32 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # include <unistd.h>
 #include <stdbool.h>
 
-struct s_game;
+struct	s_game;
 
 typedef struct s_philo
 {
@@ -63,25 +63,33 @@ typedef struct s_game
 	pthread_t		*threads;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
-	// pthread_mutex_t	print;
+	pthread_mutex_t	death_flag;
 }				t_game;
 
-long			get_time(void);
-int				ft_atoi(const char *string);
 int				is_valid_args(int argc, char **argv);
-int				show_usage(void);
-t_philo			*init_philos(int num_of_philo, t_game *game);
+
 pthread_mutex_t	*init_forks(int num_of_philo);
+t_philo			*init_philos(int num_of_philo, t_game *game);
 int				init_game(t_game *game , int argc, char **argv);
+
+int				process_game(t_game *game);
+
 void			*life_of_philo(void *philo_dum);
-void			time_sleep(int milisec);
-void			start_game(t_game *game);
-void			end_game(t_game *game);
-void			print_eating(t_philo *philo);
+void			miserable_life_of_bocchi_philo(t_game *game);
+
+void			*monitor_philo(void *game_dum);
+bool			is_game_clear(t_game *game);
+
 void			print_thinking(t_philo *philo);
+void			print_eating(t_philo *philo);
+void			print_forks(t_philo *philo);
 void			print_sleeping(t_philo *philo);
 void			print_dead(t_philo *philo);
-bool is_game_clear(t_game *game);
-void print_forks(t_philo *philo);
-void	miserable_life_of_bocchi_philo(t_game *game);
+
+void			time_sleep(int milisec);
+long			get_time(void);
+int				ft_atoi(const char *string);
+int				show_usage(void);
+int				show_error_message(void);
+
 #endif

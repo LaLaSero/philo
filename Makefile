@@ -1,9 +1,9 @@
 NAME = philo
 SRCS = srcs/main.c srcs/check_args.c srcs/utils_func.c srcs/life_of_philo.c srcs/process_game.c 
-SRCS += srcs/init_game.c srcs/print_status.c srcs/judge_gameover.c
+SRCS += srcs/init_game.c srcs/print_status.c srcs/monitor_game_status.c
 INCLUDE = includes
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 OBJS = $(SRCS:.c=.o)
 
 
