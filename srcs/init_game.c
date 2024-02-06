@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:47:05 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/05 21:35:10 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:40:32 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 t_philo *init_philos(int num_of_philo, t_game *game)
 {
 	int	i;
+	t_philo *philos;
 
 	i = 0;
-	t_philo *philos = (t_philo *)malloc(sizeof(t_philo) * num_of_philo);
+	philos = (t_philo *)malloc(sizeof(t_philo) * num_of_philo);
 	if (!philos)
 		return (NULL);
 	while (i < num_of_philo)
@@ -25,7 +26,7 @@ t_philo *init_philos(int num_of_philo, t_game *game)
 		philos[i].id = i + 1;
 		philos[i].left_fork = &game->forks[i];
 		philos[i].right_fork = &game->forks[(i + 1) % num_of_philo];
-		philos[i].last_eat = 0;
+		philos[i].last_eat = -1;
 		philos[i].eat_count = 0;
 		philos[i].game = game;
 		philos[i].is_dead = false;
@@ -63,8 +64,12 @@ int init_game(t_game *game , int argc, char **argv)
 		game->num_of_must_eat = -1;
 	game->start_time = 0;
 	game->threads = (pthread_t *)malloc(sizeof(pthread_t) * game->num_of_philo);
-	game->philos = init_philos(game->num_of_philo, game);
 	game->forks = init_forks(game->num_of_philo);
+	game->philos = init_philos(game->num_of_philo, game);
+	// for (int i = 0; i < game->num_of_philo; i++)
+	// {
+	// 	printf("forks[%d] %p\n", i, &game->forks[i]);
+	// }
 	if (!game->threads || !game->philos || !game->forks)
 	{
 		free(game->threads);

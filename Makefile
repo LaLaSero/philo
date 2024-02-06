@@ -3,28 +3,23 @@ SRCS = srcs/main.c srcs/check_args.c srcs/utils_func.c srcs/life_of_philo.c srcs
 SRCS += srcs/init_game.c srcs/print_status.c srcs/judge_gameover.c
 INCLUDE = includes
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 OBJS = $(SRCS:.c=.o)
-LIBFT = libft/libft.a
 
-all: $(LIBFT) $(NAME)
 
-$(LIBFT):
-	make -C libft
+all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 %.o: %.c $(INCLUDE)
 	$(CC) -c $(CFLAGS) -o $@ $< -I $(INCLUDE)
 
 clean:
 	rm -f $(OBJS)
-	make -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C libft fclean
 
 re: fclean all
 

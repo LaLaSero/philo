@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:32:03 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/05 17:44:14 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:50:38 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void print_thinking(t_philo *philo)
 
 void print_dead(t_philo *philo)
 {
-	printf("%ld %d is dead\n", get_time() - philo->game->start_time, philo->id);
+	printf("%ld %d died\n", get_time() - philo->game->start_time, philo->id);
 }
 
 void print_forks(t_philo *philo)

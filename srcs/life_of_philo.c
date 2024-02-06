@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:12:08 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/05 21:39:45 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:48:51 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void *monitor_philo(void *game_dum)
 	{
 		if (is_game_clear(game) == true)
 			return (NULL);
-		if (get_time() - game->philos[i].last_eat > game->time_to_die)
+		if (get_time() - game->philos[i].last_eat > game->time_to_die && game->philos[i].last_eat != -1)
 		{
 			print_dead(&game->philos[i]);
 			exit(FAILURE);
@@ -61,10 +61,12 @@ void	*life_of_philo(void *philo_dum)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_dum;
+	philo->last_eat = get_time();
 	pthread_create(&philo->pid_of_monitoring, NULL, &monitor_philo, philo->game);
 	pthread_detach(philo->pid_of_monitoring);
-	philo->last_eat = get_time();
-	while (is_game_clear(philo->game) == false)
+	if (philo->id % 2 == 0)
+		time_sleep(1);
+	while (is_game_clear(philo->game) == false && philo->is_dead == false)
 	{
 		print_thinking(philo);
 		take_forks(philo);
