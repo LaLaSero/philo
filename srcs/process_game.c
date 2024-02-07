@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:48:41 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/06 16:40:51 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:02:10 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ static void	_start_game(t_game *game)
 	}
 	i = 0;
 	game->start_time = get_time();
+	pthread_create(&game->pid_of_monitoring, NULL, &monitor_philo, game);
+	pthread_detach(game->pid_of_monitoring);
 	while (i < game->num_of_philo)
 	{
 		pthread_join(game->threads[i], NULL);
 		i++;
 	}
+	
 	return ;
 }
 
@@ -46,6 +49,9 @@ static void	_end_game(t_game *game)
 		pthread_mutex_destroy(&game->forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&game->death);
+	pthread_mutex_destroy(&game->eating);
+	pthread_mutex_destroy(&game->timing);
 	free(game->forks);
 	free(game->philos);
 	free(game->threads);

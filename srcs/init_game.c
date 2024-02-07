@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:47:05 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/06 17:38:18 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/07 15:45:10 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,17 @@ pthread_mutex_t *init_forks(int num_of_philo)
 	return (forks);
 }
 
+void	init_monitoring_mutex(t_game *game)
+{
+	pthread_mutex_init(&game->death, NULL);
+	pthread_mutex_init(&game->eating, NULL);
+	pthread_mutex_init(&game->timing, NULL);
+	return ;
+}
+
 int init_game(t_game *game , int argc, char **argv)
 {
+	game->is_gameover = false;
 	game->num_of_philo = ft_atoi(argv[1]);
 	game->time_to_die = ft_atoi(argv[2]);
 	game->time_to_eat = ft_atoi(argv[3]);
@@ -63,7 +72,7 @@ int init_game(t_game *game , int argc, char **argv)
 	else
 		game->num_of_must_eat = -1;
 	game->start_time = 0;
-	pthread_mutex_init(&game->death_flag, NULL);
+	init_monitoring_mutex(game);
 	game->threads = (pthread_t *)malloc(sizeof(pthread_t) * game->num_of_philo);
 	game->forks = init_forks(game->num_of_philo);
 	game->philos = init_philos(game->num_of_philo, game);
