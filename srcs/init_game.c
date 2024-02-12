@@ -6,13 +6,13 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:47:05 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/07 15:45:10 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:35:02 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_philo	*init_philos(int num_of_philo, t_game *game)
+static t_philo	*_init_philos(int num_of_philo, t_game *game)
 {
 	int		i;
 	t_philo	*philos;
@@ -35,7 +35,7 @@ t_philo	*init_philos(int num_of_philo, t_game *game)
 	return (philos);
 }
 
-pthread_mutex_t *init_forks(int num_of_philo)
+static pthread_mutex_t *_init_forks(int num_of_philo)
 {
 	int				i;
 	pthread_mutex_t	*forks;
@@ -52,7 +52,7 @@ pthread_mutex_t *init_forks(int num_of_philo)
 	return (forks);
 }
 
-void	init_monitoring_mutex(t_game *game)
+static void	_init_monitoring_mutex(t_game *game)
 {
 	pthread_mutex_init(&game->death, NULL);
 	pthread_mutex_init(&game->eating, NULL);
@@ -72,10 +72,10 @@ int init_game(t_game *game , int argc, char **argv)
 	else
 		game->num_of_must_eat = -1;
 	game->start_time = 0;
-	init_monitoring_mutex(game);
-	game->threads = (pthread_t *)malloc(sizeof(pthread_t) * game->num_of_philo);
-	game->forks = init_forks(game->num_of_philo);
-	game->philos = init_philos(game->num_of_philo, game);
+	_init_monitoring_mutex(game);
+	game->threads = malloc(sizeof(pthread_t) * game->num_of_philo);
+	game->forks = _init_forks(game->num_of_philo);
+	game->philos = _init_philos(game->num_of_philo, game);
 	if (!game->threads || !game->philos || !game->forks)
 	{
 		free(game->threads);

@@ -6,13 +6,37 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:48:42 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/07 17:04:47 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:47:26 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-bool	is_game_clear(t_game *game)
+static void	_report_death(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->game->death);
+	philo->is_dead = true;
+	philo->game->is_gameover = true;
+	pthread_mutex_unlock(&philo->game->death);
+	print_dead(philo);
+}
+
+static bool	_is_him_dead(t_game *game, int i)
+{
+	pthread_mutex_lock(&game->timing);
+	if (get_time() - game->philos[i].last_eat > game->time_to_die
+			&& game->philos[i].last_eat != -1
+			&& (game->philos[i].eat_count < game->num_of_must_eat
+				|| game->num_of_must_eat == -1))
+	{
+		pthread_mutex_unlock(&game->timing);
+		return (true);
+	}
+	pthread_mutex_unlock(&game->timing);
+	return (false);
+}
+
+static bool	_is_game_clear(t_game *game)
 {
 	int	i;
 
@@ -28,31 +52,6 @@ bool	is_game_clear(t_game *game)
 	return (true);
 }
 
-
-bool is_him_dead(t_game *game, int i)
-{
-	pthread_mutex_lock(&game->timing);
-	if (get_time() - game->philos[i].last_eat > game->time_to_die
-			&& game->philos[i].last_eat != -1
-			&& (game->philos[i].eat_count < game->num_of_must_eat
-				|| game->num_of_must_eat == -1))
-	{
-		pthread_mutex_unlock(&game->timing);
-		return (true);
-	}
-	pthread_mutex_unlock(&game->timing);
-	return (false);
-}
-
-void report_death(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->game->death);
-	philo->is_dead = true;
-	philo->game->is_gameover = true;
-	pthread_mutex_unlock(&philo->game->death);
-	print_dead(philo);
-}
-
 void	*monitor_philo(void *game_dum)
 {
 	int		i;
@@ -63,15 +62,15 @@ void	*monitor_philo(void *game_dum)
 	while (1)
 	{
 		pthread_mutex_lock(&game->eating);
-		if (is_game_clear(game) == true)
+		if (_is_game_clear(game) == true)
 		{
 			pthread_mutex_unlock(&game->eating);
 			return (NULL);
 		}
-		if (is_him_dead(game, i) == true)
+		if (_is_him_dead(game, i) == true)
 		{
 			pthread_mutex_unlock(&game->eating);
-			report_death(&game->philos[i]);
+			_report_death(&game->philos[i]);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&game->eating);

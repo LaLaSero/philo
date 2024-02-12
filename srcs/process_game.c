@@ -6,11 +6,19 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:48:41 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/07 17:02:10 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:30:39 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+static void	_miserable_life_of_bocchi_philo(t_game *game)
+{
+	print_thinking(&game->philos[0]);
+	time_sleep(game->time_to_die);
+	print_dead(&game->philos[0]);
+	return ;
+}
 
 static void	_start_game(t_game *game)
 {
@@ -18,7 +26,7 @@ static void	_start_game(t_game *game)
 
 	game->start_time = get_time();
 	if (game->num_of_philo == 1)
-		return (miserable_life_of_bocchi_philo(game));
+		return (_miserable_life_of_bocchi_philo(game));
 	i= 0;
 	while (i < game->num_of_philo)
 	{
