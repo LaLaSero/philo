@@ -66,8 +66,18 @@ static void	_end_game(t_game *game)
 	return ;
 }
 
+static void	_adjust_alignment(t_game *game)
+{
+	if (game->time_to_eat > 5)
+		game->time_to_eat -= 5;
+	if (game->time_to_sleep > 5)
+		game->time_to_sleep -= 5;
+	return ;
+}
+
 int	process_game(t_game *game)
 {
+	_adjust_alignment(game);
 	_start_game(game);
 	_end_game(game);
 	return (0);

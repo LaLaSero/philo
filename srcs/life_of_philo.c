@@ -62,11 +62,15 @@ void	*life_of_philo(void *philo_dum)
 		print_thinking(philo);
 		if (take_forks(philo) == FAILURE)
 			return (NULL);
+		if (_should_continue(philo) == false)
+			return (NULL);
 		print_eating(philo);
 		_mark_last_eat(philo);
 		time_sleep(philo->game->time_to_eat);
 		_inclease_eat_count(philo);
 		put_down_forks(philo);
+		if (_should_continue(philo) == false)
+			return (NULL);
 		get_sleep(philo);
 	}
 	return (NULL);
