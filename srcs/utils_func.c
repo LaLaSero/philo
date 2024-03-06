@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:01:17 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/06 17:25:32 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:04:58 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,19 @@ int	ft_atoi(const char *string)
 	return (result * flag);
 }
 
-void	time_sleep(int milisec)
+// void	time_sleep(int milisec)
+// {
+// 	usleep(milisec * 1000);
+// }
+
+void	time_sleep(int time)
 {
-	usleep(milisec * 1000);
+	long int	start_time;
+
+	start_time = get_time();
+	while ((get_time() - start_time) < time)
+		usleep(150);
+	return ;
 }
 
 int	show_usage()

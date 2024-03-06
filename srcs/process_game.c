@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_game.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:48:41 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/07 17:30:39 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:08:35 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,8 @@ static void	_end_game(t_game *game)
 	return ;
 }
 
-static void	_adjust_alignment(t_game *game)
-{
-	if (game->time_to_eat > 5)
-		game->time_to_eat -= 5;
-	if (game->time_to_sleep > 5)
-		game->time_to_sleep -= 5;
-	return ;
-}
-
 int	process_game(t_game *game)
 {
-	_adjust_alignment(game);
 	_start_game(game);
 	_end_game(game);
 	return (0);
