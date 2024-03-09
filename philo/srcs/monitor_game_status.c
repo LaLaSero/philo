@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor_game_status.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 16:48:42 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/03/09 17:25:59 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:58:00 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static bool	_is_him_dead(t_game *game, int i)
 {
 	pthread_mutex_lock(&game->timing);
 	if (get_time() - game->philos[i].last_eat > game->time_to_die
-			&& game->philos[i].last_eat != -1
-			&& (game->philos[i].eat_count < game->num_of_must_eat
-				|| game->num_of_must_eat == -1))
+		&& game->philos[i].last_eat != -1
+		&& (game->philos[i].eat_count < game->num_of_must_eat
+			|| game->num_of_must_eat == -1))
 	{
 		pthread_mutex_unlock(&game->timing);
 		return (true);

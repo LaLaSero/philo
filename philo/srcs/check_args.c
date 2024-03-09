@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:19:37 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/05 17:52:05 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:57:16 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	_is_valid_param(const char *string)
 	}
 	if (*string == '\0' && result > 0)
 		return (VALID);
-	return(INVALID);
+	return (INVALID);
 }
 
 int	is_valid_args(int argc, char **argv)
@@ -46,7 +46,7 @@ int	is_valid_args(int argc, char **argv)
 	while (i < argc)
 	{
 		if(_is_valid_param(argv[i]) == INVALID)
-			return(INVALID);
+			return (INVALID);
 		i++;
 	}
 	return (VALID);

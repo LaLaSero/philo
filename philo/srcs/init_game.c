@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:47:05 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/02/07 17:35:02 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:57:28 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_philo	*_init_philos(int num_of_philo, t_game *game)
 	return (philos);
 }
 
-static pthread_mutex_t *_init_forks(int num_of_philo)
+static pthread_mutex_t	*_init_forks(int num_of_philo)
 {
 	int				i;
 	pthread_mutex_t	*forks;
@@ -60,7 +60,7 @@ static void	_init_monitoring_mutex(t_game *game)
 	return ;
 }
 
-int init_game(t_game *game , int argc, char **argv)
+int	init_game(t_game *game , int argc, char **argv)
 {
 	game->is_gameover = false;
 	game->num_of_philo = ft_atoi(argv[1]);

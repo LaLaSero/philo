@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philos_action.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:19:46 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/03/09 18:12:59 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:59:36 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,8 @@
 int	take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
-	// pthread_mutex_lock(&philo->game->death);
-	// if(philo->game->is_gameover == true)
-	// {
-	// 	pthread_mutex_unlock(&philo->game->death);
-	// 	return (FAILURE);
-	// }
 	print_forks(philo);
 	pthread_mutex_lock(philo->right_fork);
-	// if(philo->game->is_gameover == true)
-	// {
-	// 	pthread_mutex_unlock(&philo->game->death);
-	// 	return (FAILURE);
-	// }
-	// pthread_mutex_unlock(&philo->game->death);
 	print_forks(philo);
 	return (SUCCESS);
 }
